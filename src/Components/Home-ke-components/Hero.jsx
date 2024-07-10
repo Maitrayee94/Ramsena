@@ -6,12 +6,7 @@ import stakeAbi1 from "../utils/stakeAbi1.json";
 
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
-import Web3 from "web3";
-import {
-    prepareWriteContract,
-    writeContract,
-    waitForTransaction,
-} from "@wagmi/core";
+import Web3 from 'web3'
 
 const Hero = () => {
     const webApi = new Web3("https://go.getblock.io/c26d1769fb0b4cfaa455761c8ee6b946");
