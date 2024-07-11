@@ -37,9 +37,9 @@ const StakeHero = () => {
   const { isConnected, address } = useAccount()
   const [rightContainer, setrightContainer] = useState(true)
 
-  const stakeC1 = '0xD32eD6E1cd0A1Ed3496a091b13652321265F260e'
+  const stakeC1 = '0xb0cb23c9fdd607dcd14ab7765087899d0d059356'
 
-  const tAddress = '0xbb51784a641472f7B4fC5af9CB4042bD52DE54a9'
+  const tAddress = '0xe30eb76ea6004789074dad11613c946d6ba8df19'
 
   const [data1, setData1] = useState({
     approveAmt: '',

@@ -12,7 +12,7 @@ const metadata = {
 const projectId = 'e4afaa996192e3d484b46d43a9f6f870'
 
 export const config = defaultWagmiConfig({
-  chains: [bsc],
+  chains: [bsc, bscTestnet],
   projectId,
   metadata: metadata,
   auth: {
