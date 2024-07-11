@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 // import { Link } from "react-router-dom"
 import { stakeAbi1 } from '../utils/stakeAbi1.js'
 import stakeAbi2 from '../utils/stakeAbi2.json'
-import { tAbi } from '../utils/tAbi'
+import { tAbi } from '../utils/tAbi.js'
 
 import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
@@ -26,9 +26,7 @@ import { bscTestnet } from 'wagmi/chains'
 import { config } from '../../config'
 
 const StakeHero = () => {
-  const webApi = new Web3(
-    'https://go.getblock.io/ca850a9859724d08a9e6b822a361caef'
-  )
+  const webApi = new Web3('https://rpc.ankr.com/bsc_testnet_chapel')
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(0)
   const [TokenCount, setTokenCount] = useState('')
@@ -110,7 +108,7 @@ const StakeHero = () => {
       toast.dismiss(toastId)
       toast.success('Approval completed successfully')
       setApprovedDone(true)
-      window.location.reload()
+      //   window.location.reload()
     } catch (error) {
       toast.dismiss()
       toast.error('Error in approve transaction')
@@ -125,13 +123,16 @@ const StakeHero = () => {
     }
 
     try {
+      console.log(data)
       let amtValue = webApi.utils.toWei(data.amt.toString())
       const usdtAmt = amtValue
       const stakeAmt = Number(usdtAmt)
-
+      console.log(address)
+      const tokenContract = new webApi.eth.Contract(tAbi, tAddress)
+      console.log('contract', tokenContract)
       const tokenBalance = await tokenContract.methods.balanceOf(address).call()
-      // console.log("Token balance", Number(tokenBalance));
-      // console.log("stakeAmt", stakeAmt);
+      console.log('Token balance', Number(tokenBalance))
+      console.log('stakeAmt', stakeAmt)
 
       if (Number(tokenBalance) < stakeAmt) {
         toast.error('Insufficient token balance for this transaction')
@@ -145,14 +146,20 @@ const StakeHero = () => {
       // console.log("Token Allowance", allowance);
       // console.log("stakeAmt", stakeAmt);
 
+      console.log(stakeAmt, selectedItem, referral)
+      console.log(address)
+      console.log('abi', stakeAbi1)
+
       const { request } = await simulateContract(config, {
         address: stakeC1,
         abi: stakeAbi1,
         chainId: bscTestnet.id,
         functionName: 'stakeTokens',
-        args: [stakeAmt, selectedItem, referral],
+        args: [stakeAmt, 1, referral],
         from: address,
       })
+
+      console.log('request', request)
 
       const toastId = toast.loading('Processing Stake Transaction..')
       await writeContract(config, request)

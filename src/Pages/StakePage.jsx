@@ -8,7 +8,7 @@ const StakePage = () => {
     <>
       <Navbar />
       <StakeHero />
-      {/* <Refral /> */}
+      <Refral />
       <StakingList />
     </>
   )
