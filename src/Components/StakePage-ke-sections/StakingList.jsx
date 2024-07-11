@@ -14,9 +14,7 @@ import {
 import { config } from '../../config'
 
 const StakingList = () => {
-  const webApi = new Web3(
-    'https://go.getblock.io/42909f89bc1549cdb580305358939df7'
-  )
+  const webApi = new Web3('https://rpc.ankr.com/bsc_testnet_chapel')
   const [copyStatus, setCopyStatus] = useState({})
   const { isConnected, address } = useAccount()
   const [userStakeCount, setUserStakeCount] = useState(0)
@@ -55,7 +53,7 @@ const StakingList = () => {
     (currentData === 'stakingList' ? userStakingList : data[currentData])
       .length / itemsPerPage
   )
-  const stakeA1 = '0xD32eD6E1cd0A1Ed3496a091b13652321265F260e'
+  const stakeA1 = '0xd32ed6e1cd0a1ed3496a091b13652321265f260e'
   const StakeA2 = '0xb0CB23c9Fdd607DcD14AB7765087899D0D059356'
 
   const handleCopyReferralCode = (code, index) => {
@@ -123,9 +121,11 @@ const StakingList = () => {
 
       try {
         const contract1 = new webApi.eth.Contract(stakeAbi1, stakeA1)
+        console.log(contract1)
         const userStakeData1 = await contract1.methods
           .userStakingCount(address)
           .call()
+        console.log('userStacking', userStakeData1)
         setUserStakeCount(userStakeData1)
 
         const stakingList = []
@@ -133,6 +133,7 @@ const StakingList = () => {
           const userStake = await contract1.methods
             .userStaking(address, i)
             .call()
+          console.log(i, userStake)
           let returns = 0
           switch (parseInt(userStake[1])) {
             case 360:
