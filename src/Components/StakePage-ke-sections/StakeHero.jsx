@@ -8,9 +8,9 @@ import approveImg from '../../assets/icons/stake-approve-img.svg'
 // import logo from "../../assets/icons/logo.webp"
 import { useEffect, useRef, useState } from 'react'
 // import { Link } from "react-router-dom"
-import stakeAbi1 from '../utils/stakeAbi1.json'
+import { stakeAbi1 } from '../utils/stakeAbi1.js'
 import stakeAbi2 from '../utils/stakeAbi2.json'
-import tAbi from '../utils/tAbi.json'
+import { tAbi } from '../utils/tAbi'
 
 import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
@@ -86,7 +86,9 @@ const StakeHero = () => {
       const stakeAmt = usdtAmt
       console.log('Stake Amount', stakeAmt)
 
-      const approvalTransaction = await simulateContract(config, {
+      console.log(config, tAbi)
+
+      const { request } = await simulateContract(config, {
         address: tAddress,
         abi: tAbi,
         functionName: 'approve',
@@ -94,9 +96,9 @@ const StakeHero = () => {
         from: address,
       })
 
-      console.log(approvalTransaction)
+      console.log('approval', request)
       const toastId = toast.loading('Approving transaction...')
-      const hash = await writeContract(approvalTransaction)
+      const hash = await writeContract(config, request)
       toast.loading('Processing Approval Transaction..', { id: toastId })
       await waitForTransaction(hash)
       toast.dismiss(toastId)
@@ -137,7 +139,7 @@ const StakeHero = () => {
       // console.log("Token Allowance", allowance);
       // console.log("stakeAmt", stakeAmt);
 
-      const stakeTransaction = await simulateContract(config, {
+      const { request } = await simulateContract(config, {
         address: stakeC1,
         abi: stakeAbi1,
         functionName: 'stakeTokens',
@@ -146,7 +148,7 @@ const StakeHero = () => {
       })
 
       const toastId = toast.loading('Processing Stake Transaction..')
-      await writeContract(stakeTransaction)
+      await writeContract(config, request)
 
       toast.success('Stake Transaction completed successfully', { id: toastId })
       setData({ amt: '', duration: '' })

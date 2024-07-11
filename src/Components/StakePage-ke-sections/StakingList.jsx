@@ -1,7 +1,7 @@
 import copy from '../../assets/icons/copybtn.svg'
 import { useEffect, useState } from 'react'
-import stakeAbi1 from '../utils/stakeAbi1.json'
-import stakeAbi2 from '../utils/stakeAbi1.json'
+import { stakeAbi1 } from '../utils/stakeAbi1'
+
 import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
 import Web3 from 'web3'
@@ -88,7 +88,7 @@ const StakingList = () => {
         .withdrawalCompleted(address, index)
         .call()
       console.log(userwithdrawStatus)
-      const approvalTransaction = await simulateContract(config, {
+      const { request } = await simulateContract(config, {
         address: stakeA1,
         abi: stakeAbi1,
         functionName: 'withdraw',
@@ -98,7 +98,7 @@ const StakingList = () => {
 
       //console.log(approvalTransaction);
       const toastId = toast.loading('Withdrawl In Process...')
-      const hash = await writeContract(approvalTransaction)
+      const hash = await writeContract(config, request)
       toast.loading('Processing Withdrawl Transaction..', { id: toastId })
       await waitForTransaction(hash)
       toast.dismiss(toastId)

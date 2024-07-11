@@ -2,7 +2,7 @@
 // import rcoin from "../../assets/icons/ramsenaCoin.webp"
 import HeroImg from "../../assets/images/heroImg.svg"
 import { useEffect, useState } from "react";
-import stakeAbi1 from "../utils/stakeAbi1.json";
+import { stakeAbi1 } from '../utils/stakeAbi1.js'
 
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
