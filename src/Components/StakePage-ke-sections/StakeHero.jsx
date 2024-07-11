@@ -155,7 +155,7 @@ const StakeHero = () => {
         abi: stakeAbi1,
         chainId: bscTestnet.id,
         functionName: 'stakeTokens',
-        args: [stakeAmt, 1, referral],
+        args: [stakeAmt, selectedItem / 360, referral],
         from: address,
       })
 
@@ -167,9 +167,9 @@ const StakeHero = () => {
       toast.success('Stake Transaction completed successfully', { id: toastId })
       setData({ amt: '', duration: '' })
 
-      setTimeout(() => {
-        window.location.reload()
-      }, 3000)
+      //   setTimeout(() => {
+      //     window.location.reload()
+      //   }, 3000)
     } catch (error) {
       toast.dismiss()
 
