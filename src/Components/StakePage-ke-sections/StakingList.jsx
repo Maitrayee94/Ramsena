@@ -8,7 +8,7 @@ import Web3 from 'web3'
 import {
   simulateContract,
   writeContract,
-  waitForTransaction,
+  waitForTransactionReceipt,
 } from '@wagmi/core'
 
 import { config } from '../../config'
@@ -91,6 +91,7 @@ const StakingList = () => {
       const { request } = await simulateContract(config, {
         address: stakeA1,
         abi: stakeAbi1,
+        chainId: bscTestnet.id,
         functionName: 'withdraw',
         args: [index],
         from: address,
@@ -100,7 +101,9 @@ const StakingList = () => {
       const toastId = toast.loading('Withdrawl In Process...')
       const hash = await writeContract(config, request)
       toast.loading('Processing Withdrawl Transaction..', { id: toastId })
-      await waitForTransaction(hash)
+      await waitForTransactionReceipt(config, {
+        hash: hash,
+      })
       toast.dismiss(toastId)
       toast.success('Withdrawl successfully')
       window.location.reload()

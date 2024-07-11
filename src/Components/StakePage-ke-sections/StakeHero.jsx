@@ -18,8 +18,10 @@ import Web3 from 'web3'
 import {
   simulateContract,
   writeContract,
-  waitForTransaction,
+  waitForTransactionReceipt,
 } from '@wagmi/core'
+
+import { bscTestnet } from 'wagmi/chains'
 
 import { config } from '../../config'
 
@@ -91,6 +93,7 @@ const StakeHero = () => {
       const { request } = await simulateContract(config, {
         address: tAddress,
         abi: tAbi,
+        chainId: bscTestnet.id,
         functionName: 'approve',
         args: [stakeC1, stakeAmt],
         from: address,
@@ -99,8 +102,11 @@ const StakeHero = () => {
       console.log('approval', request)
       const toastId = toast.loading('Approving transaction...')
       const hash = await writeContract(config, request)
+      console.log('hash', hash)
       toast.loading('Processing Approval Transaction..', { id: toastId })
-      await waitForTransaction(hash)
+      await waitForTransactionReceipt(config, {
+        hash: hash,
+      })
       toast.dismiss(toastId)
       toast.success('Approval completed successfully')
       setApprovedDone(true)
@@ -142,6 +148,7 @@ const StakeHero = () => {
       const { request } = await simulateContract(config, {
         address: stakeC1,
         abi: stakeAbi1,
+        chainId: bscTestnet.id,
         functionName: 'stakeTokens',
         args: [stakeAmt, selectedItem, referral],
         from: address,
