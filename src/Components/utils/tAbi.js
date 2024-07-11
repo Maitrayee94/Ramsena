@@ -1,14 +1,5 @@
 export const tAbi = [
-  {
-    inputs: [
-      { internalType: 'address', name: '__BRT_target', type: 'address' },
-      { internalType: 'string', name: '__BRT_name', type: 'string' },
-      { internalType: 'string', name: '__BRT_symbol', type: 'string' },
-      { internalType: 'uint8', name: '__BRT_decimals', type: 'uint8' },
-    ],
-    stateMutability: 'payable',
-    type: 'constructor',
-  },
+  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
     anonymous: false,
     inputs: [
@@ -38,6 +29,142 @@ export const tAbi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: 'address',
+        name: 'newPair',
+        type: 'address',
+      },
+    ],
+    name: 'AutomatedMarketMakerPairsUpdate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'liquidityBuyTax',
+        type: 'uint256',
+      },
+    ],
+    name: 'BuyTaxUpdate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'dailymaxTxAmount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'maxTxAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'DaiyMaxTxAmountAndMaxTxAmountUpdate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'tradingActive',
+        type: 'bool',
+      },
+    ],
+    name: 'EnableTradingUpdate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'ExcludeFromFee',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'ExcludeFromReward',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'IncludeInFee',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'IncludeInReward',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'liquidityAddress',
+        type: 'address',
+      },
+    ],
+    name: 'LiquidityAddressUpdate',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_numTokensSellToAddToLiquidityPercentage',
+        type: 'uint256',
+      },
+    ],
+    name: 'NumTokenSellToAddToLiquidityPercentageAndMaxwalletAmount',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: 'address',
         name: 'previousOwner',
@@ -56,6 +183,52 @@ export const tAbi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'liquiditySellTax',
+        type: 'uint256',
+      },
+    ],
+    name: 'SellTax',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'tokensSwapped',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'ethReceived',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'tokensIntoLiqudity',
+        type: 'uint256',
+      },
+    ],
+    name: 'SwapAndLiquity',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: false, internalType: 'bool', name: 'enabled', type: 'bool' },
+    ],
+    name: 'SwapAndLiquityEnabledUpdated',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
       { indexed: true, internalType: 'address', name: 'from', type: 'address' },
       { indexed: true, internalType: 'address', name: 'to', type: 'address' },
       {
@@ -67,6 +240,89 @@ export const tAbi = [
     ],
     name: 'Transfer',
     type: 'event',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_numTokensSellToAddToLiquidityPercentage',
+        type: 'uint256',
+      },
+    ],
+    name: 'AddToLiquidityPercentage',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'WETH',
+    outputs: [{ internalType: 'contract IERC20', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_deadAdderess',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_liquidityAddress',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_liquidityBuyTax',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_liquiditySellTax',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_liquidityTax',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_maxTxAmount',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_maxWalletToken',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_ownerAddress',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: '_totalTax',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
@@ -89,6 +345,13 @@ export const tAbi = [
     type: 'function',
   },
   {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'automatedMarketMakerPairs',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
@@ -96,27 +359,10 @@ export const tAbi = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
+    inputs: [{ internalType: 'uint256', name: 'tBurn', type: 'uint256' }],
     name: 'burn',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: 'account', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
-    ],
-    name: 'burnFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'createdByBRT',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'pure',
     type: 'function',
   },
   {
@@ -137,10 +383,17 @@ export const tAbi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'getIdentifier',
-    outputs: [{ internalType: 'string', name: '', type: 'string' }],
-    stateMutability: 'view',
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'excludeFromFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'includeInFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -154,10 +407,10 @@ export const tAbi = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'address', name: 'botAddress', type: 'address' }],
-    name: 'markAsBot',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'isExcludedFromFee',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -175,13 +428,6 @@ export const tAbi = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'address', name: 'botAddress', type: 'address' }],
-    name: 'removeBotMark',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'renounceOwnership',
     outputs: [],
@@ -189,13 +435,58 @@ export const tAbi = [
     type: 'function',
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'tokenAddress', type: 'address' },
-      { internalType: 'uint256', name: 'tokenAmount', type: 'uint256' },
-    ],
-    name: 'rescueToken',
+    inputs: [{ internalType: 'address', name: 'newPair', type: 'address' }],
+    name: 'setAutomatedMarketMakerPairs',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'liquidityBuyTax', type: 'uint256' },
+    ],
+    name: 'setBuyTax',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'bool', name: 'tradingActive', type: 'bool' }],
+    name: 'setEnableTrading',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'liquidityAddress', type: 'address' },
+    ],
+    name: 'setLiquidityAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'liquiditySellTax', type: 'uint256' },
+    ],
+    name: 'setSellTax',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'bool', name: '_enabled', type: 'bool' }],
+    name: 'setSwapAndLiquityEnabled',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'swapAndLiquityEnabled',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -214,7 +505,7 @@ export const tAbi = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' },
     ],
     name: 'transfer',
@@ -236,6 +527,44 @@ export const tAbi = [
   {
     inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
     name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'uniswapV2Pair',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'uniswapV2Router',
+    outputs: [
+      {
+        internalType: 'contract IUniswapV2Router02',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'withdrawDumpBNB',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'token', type: 'address' },
+      { internalType: 'address', name: 'recipient', type: 'address' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+    ],
+    name: 'withdrawDumpToken',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
