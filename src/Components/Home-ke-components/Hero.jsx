@@ -9,7 +9,7 @@ import { useAccount } from "wagmi";
 import Web3 from 'web3'
 
 const Hero = () => {
-    const webApi = new Web3("https://go.getblock.io/c26d1769fb0b4cfaa455761c8ee6b946");
+    const webApi = new Web3("https://rpc.ankr.com/bsc_testnet_chapel");
     const { isConnected, address } = useAccount();
     const [totalStaked, setTotalStaked] = useState(0);
     const [totalUser, setTotaluser] = useState(0);
@@ -22,7 +22,7 @@ const Hero = () => {
             }
             //console.log(address);
             try {
-                const contract1 = new webApi.eth.Contract(stakeAbi1, "0xD32eD6E1cd0A1Ed3496a091b13652321265F260e");
+                const contract1 = new webApi.eth.Contract(stakeAbi1, "0xb0CB23c9Fdd607DcD14AB7765087899D0D059356");
                 const userStakeData1 = await contract1.methods.totalStaked().call();
                 //console.log(userStakeData1);
                 setTotalStaked(webApi.utils.fromWei(userStakeData1, 'ether'));

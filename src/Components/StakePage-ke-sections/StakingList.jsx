@@ -1,6 +1,6 @@
 import copy from '../../assets/icons/copybtn.svg'
 import { useEffect, useState } from 'react'
-import { stakeAbi1 } from '../utils/stakeAbi1'
+import { stakeAbi1 } from '../utils/stakeAbi1.js'
 
 import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
@@ -53,7 +53,7 @@ const StakingList = () => {
     (currentData === 'stakingList' ? userStakingList : data[currentData])
       .length / itemsPerPage
   )
-  const stakeA1 = '0xd32ed6e1cd0a1ed3496a091b13652321265f260e'
+  const stakeA1 = '0xb0CB23c9Fdd607DcD14AB7765087899D0D059356'
   const StakeA2 = '0xb0CB23c9Fdd607DcD14AB7765087899D0D059356'
 
   const handleCopyReferralCode = (code, index) => {

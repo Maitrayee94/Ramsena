@@ -37,9 +37,9 @@ const StakeHero = () => {
   const { isConnected, address } = useAccount()
   const [rightContainer, setrightContainer] = useState(true)
 
-  const stakeC1 = '0xd32ed6e1cd0a1ed3496a091b13652321265f260e'
+  const stakeC1 = '0xb0CB23c9Fdd607DcD14AB7765087899D0D059356'
 
-  const tAddress = '0xbb51784a641472f7B4fC5af9CB4042bD52DE54a9'
+  const tAddress = '0xe30Eb76Ea6004789074dad11613c946D6Ba8df19'
 
   const [data1, setData1] = useState({
     approveAmt: '',
@@ -146,9 +146,9 @@ const StakeHero = () => {
       // console.log("Token Allowance", allowance);
       // console.log("stakeAmt", stakeAmt);
 
-      console.log(stakeAmt, selectedItem, referral)
+      console.log(stakeAmt, selectedItem / 360, referral)
       console.log(address)
-      console.log('abi', stakeAbi1)
+      //console.log('abi', stakeAbi1)
 
       const { request } = await simulateContract(config, {
         address: stakeC1,
